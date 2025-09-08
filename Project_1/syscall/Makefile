@@ -1,0 +1,1 @@
+obj-y := get_vir_to_phy.o get_segment.o
