@@ -18,9 +18,13 @@ linux-5.8.1
 ## 編譯
 1. 編譯 Kernel
 2. 編譯程式
-`gcc -o test_multi_thread test_multi_thread.c -pthread`
+    ```
+    gcc -o test_multi_thread test_multi_thread.c -pthread
+    ```
 3. 執行程式
-`./test_multi_thread`
+    ```
+    ./test_multi_thread
+    ```
 
 ## 範例輸出
 - Process 和 Thread ID
