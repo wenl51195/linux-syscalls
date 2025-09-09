@@ -13,7 +13,7 @@
     * Hard Disk:30 GB 
         * 實際用量 27.88 GB
 
-### 編譯 Kernel 步驟
+## 編譯 Kernel 步驟
 [參考網頁](https://dev.to/jasper/adding-a-system-call-to-the-linux-kernel-5-8-1-in-ubuntu-20-04-lts-2ga8)
 
 1. 在同層目錄 (proj1) 新增 Makefile
@@ -34,9 +34,13 @@
     ```
     * 若在其他資料夾也有 system call，則往後加
     * 例如同層目錄中有另外一個資料夾 proj2 有 system call
-    `core-y += kernel/ cert/ mm/ fs/ ipc/ security/ crypto/ block/ proj1/ proj2`
+    ```
+    core-y += kernel/ cert/ mm/ fs/ ipc/ security/ crypto/ block/ proj1/ proj2
+    ```
 3. 在 system call header 加入你的 system call 對應的函數原型
-    `$ nano include/linux/syscalls.h`
+    ```
+    $ nano include/linux/syscalls.h
+    ```
     * 在文件底下 `#endif` 前添加
     ```
     # 在檔案中添加函數宣告
@@ -67,9 +71,13 @@
     -> Exit
     ```
 7. 查核心數量
-    `$ nproc`
+    ```
+    $ nproc
+    ```
 8. 開始 Compile Kernel
-    `$ sudo make -j6` or `$ sudo make -j$(nproc)`
+    ```
+    $ sudo make -j6
+    ``` or `$ sudo make -j$(nproc)`
 9. 安裝模組
     `$ sudo make modules_install install -j6`
 10. 更新 OS 的 bootloader 使用 new kernel
