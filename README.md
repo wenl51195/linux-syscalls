@@ -55,7 +55,7 @@
     $ nano arch/x86/entry/syscalls/syscall_64.tbl
     
     # 格式: <number> <abi> <name> <entry point>
-    545	64	get_vir_to_phy		sys_get_vir_to_phy
+    545	64	get_vir_to_phy  sys_get_vir_to_phy
     546	64	get_segment		sys_get_segment
     ```
 5. 安裝編譯 kernel 前需要的套件
