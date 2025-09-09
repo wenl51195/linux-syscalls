@@ -77,18 +77,31 @@
 8. 開始 Compile Kernel
     ```
     $ sudo make -j6
-    ``` or `$ sudo make -j$(nproc)`
+    ```
 9. 安裝模組
-    `$ sudo make modules_install install -j6`
+    ```
+    $ sudo make modules_install install -j6
+    ```
 10. 更新 OS 的 bootloader 使用 new kernel
     ```
     $ nano /etc/default/grub
 
-    GRUB_DEFAULT=0
     GRUB_TIMEOUT_STYLE=menu
     GRUB_TIMEOUT=15
 
     $ sudo update-grub
     ```
 11. 重開機
-    `$ sudo reboot`
+    ```
+    $ sudo reboot
+    ```
+
+## 編譯 Kernel 時遇到的問題
+-   ```
+    No rule to make target ‘debian/canonical-certs.pem‘, needed by ‘certs/  x509_certificate_list‘
+    ```
+    > 解法：編輯 .config 文件，修改 `CONFIG_SYSTEM_TRUSTED_KEYS="debian/canonical-certs.pem"` 為 `CONFIG_SYSTEM_TRUSTED_KEYS=""` [參考網頁](https://blog.csdn.net/qq_36393978/article/details/118157426)
+-   ```
+    Failed to generate BTF for vmlinux
+    ```
+    > 解法：編輯 .config 文件，修改 `CONFIG_DEBUG_INFO=y` 為 `CONFIG_DEBUG_INFO=n`
