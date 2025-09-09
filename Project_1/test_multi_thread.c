@@ -24,7 +24,6 @@ int code_function() {
     return 0;
 }
 
-// 記憶體段結構定義
 struct Segment {
     unsigned long start_addr;
     unsigned long end_addr;
@@ -39,7 +38,6 @@ struct ProcessSegments {
     struct Segment stack_seg;
 };
 
-// 獲取實體地址
 unsigned long get_phys_addr(unsigned long virtual_address) {
     unsigned long physical_address = 0;
 	int ret = syscall(get_vir_to_phy, &virtual_address, &physical_address);
@@ -48,13 +46,9 @@ unsigned long get_phys_addr(unsigned long virtual_address) {
     return physical_address;
 }
 
-// 執行緒記憶體資訊
 void thread_memory_info(const char* name) {
-    // 區域變數（在各自的 stack 中）
-    int stack_value = (strcmp(name, "main") == 0) ? 10 : 
-                     (strcmp(name, "thread1") == 0) ? 100 : 200;
+    int stack_value = 100;  // 區域變數（在各自的 stack 中）
     
-    // 取得各種記憶體位址
     unsigned long TLS = (unsigned long)&thread_local_storage_value;
     unsigned long stack = (unsigned long)&stack_value;
     unsigned long lib = (unsigned long)getpid;               // 函式庫
@@ -75,7 +69,6 @@ void thread_memory_info(const char* name) {
     printf("Data\t0x%08lx\t0x%08lx\n", data, get_phys_addr(data));
     printf("Code\t0x%08lx\t0x%08lx\n", code, get_phys_addr(code));
     
-    // 獲取記憶體段詳細資訊
     printf("\n=== Memory Segment Details ===\n");
     struct ProcessSegments thread_segs;
     memset(&thread_segs, 0, sizeof(thread_segs));
@@ -129,55 +122,40 @@ void thread_memory_info(const char* name) {
     
     printf("\n");
     
-    // 清理動態分配的記憶體
     if (heap) free((void*)heap);
 }
 
-// 執行緒 1 函數
 void *thread1(void *arg) {
-    sleep(2);  // 確保執行順序
+    sleep(2);
     thread_memory_info("thread1");
     pthread_exit(NULL);
 }
 
-// 執行緒 2 函數
 void *thread2(void *arg) {
-    sleep(4);  // 確保執行順序
+    sleep(4);
     thread_memory_info("thread2");
     pthread_exit(NULL);
 }
 
-// 主程式
 int main() {
     pthread_t t1, t2;
-    // 創建執行緒
+
     if (pthread_create(&t1, NULL, thread1, NULL) != 0) {
         perror("Failed to create thread1");
         return 1;
     }
-    
+
     if (pthread_create(&t2, NULL, thread2, NULL) != 0) {
         perror("Failed to create thread2");
         return 1;
     }
     
-    // 等待足夠時間讓子執行緒完成
     sleep(10);
     
-    // 主執行緒資訊
     thread_memory_info("main");
-    
-    // 顯示執行緒控制塊地址
-    printf("========== Thread Control Information ==========\n");
-    printf("Thread 1 handle address: %p\n", (void*)&t1);
-    printf("Thread 2 handle address: %p\n", (void*)&t2);
-    printf("Main thread TID: %d\n", (int)gettid());
-    printf("\n");
-    
-    // 等待子執行緒結束
+
     pthread_join(t1, NULL);
     pthread_join(t2, NULL);
-    
-    printf("Completed.\n");
+
     return 0;
 }
