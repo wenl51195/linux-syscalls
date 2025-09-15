@@ -140,15 +140,8 @@ void *thread2(void *arg) {
 int main() {
     pthread_t t1, t2;
 
-    if (pthread_create(&t1, NULL, thread1, NULL) != 0) {
-        perror("Failed to create thread1");
-        return 1;
-    }
-
-    if (pthread_create(&t2, NULL, thread2, NULL) != 0) {
-        perror("Failed to create thread2");
-        return 1;
-    }
+    pthread_create(&t1, NULL, thread1, NULL);
+    pthread_create(&t2, NULL, thread2, NULL);
     
     sleep(10);
     

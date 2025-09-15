@@ -66,5 +66,5 @@ SYSCALL_DEFINE2(get_vir_to_phy,
     
     copy_to_user(physical_addr, &paddr, sizeof(unsigned long));
     
-    return 1;
+    return 0;
 }
