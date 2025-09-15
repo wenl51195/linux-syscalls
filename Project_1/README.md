@@ -1,4 +1,4 @@
-# Project 1
+# Project 1. get-thread-segment-address
 實作 system call ，功能是將使用者空間的 virtual address 轉為 physical address，並且取得每個 segment (text、data、BSS、heap、libraries、stack) 的起始位址、結束位址與大小。
 透過 system call 來觀察不同的 thread 記憶體區段的共享情況，哪些 segment 會共用 memory。
 
