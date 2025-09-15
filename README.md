@@ -1,4 +1,4 @@
-# linux-get-segment-address-syscalls
+# linux-syscalls
 
 ## 環境設置
 * Linux version: Ubuntu 20.04
