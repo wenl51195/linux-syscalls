@@ -31,6 +31,4 @@ linux-5.8.1
 - 各記憶體區段的虛擬地址和實體地址
 - 各記憶體區段範圍和大小
 
-![img](result/result1.png)
-![img](result/result2.png)
-![img](result/result3.png)
+![img](result/linux-1-result.png)
