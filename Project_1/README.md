@@ -29,6 +29,5 @@ linux-5.8.1
 ## 輸出
 - Process 和 Thread ID
 - 各記憶體區段的虛擬地址和實體地址
-- 各記憶體區段範圍和大小
 
 ![img](result/linux-1-result.png)
